@@ -22,16 +22,28 @@ end
 
 # Submit /var/github/publickey to github
 submit_public_key_to_github "joker1007" do
+  user "joker1007"
+  github_user "joker1007"
   key_path "/var/github/publickey"
 end
 ```
 
 # Attributes
+| attributes                    | description                                        |
+| -----------------             | --------------                                     |
+| user                          | username, used submit key title and home directory |
+| home (optional)               | home directory path, used key_path base            |
+| key_path (optional)           | absolute path for submit key                       |
+| github_user                   | github username                                    |
+| github_password (optional)    | github password                                    |
+| github_oauth_token (optional) | github oauth token                                 |
 
-| attributes                          | description           |
-| ---------------------------------   | --------------------- |
-| node[:ssh_keys][:github][:user]     | github user account   |
-| node[:ssh_keys][:github][:password] | github password       |
+# Node attributes
+| attributes                             | description                     |
+| ---------------------------------      | ---------------------           |
+| node[:ssh_keys][:github][:user]        | as github_user parameter        |
+| node[:ssh_keys][:github][:password]    | as github_password parameter    |
+| node[:ssh_keys][:github][:oauth_token] | as github_oauth_token parameter |
 
 # Recipes
 

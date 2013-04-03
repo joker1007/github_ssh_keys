@@ -18,10 +18,9 @@ define :submit_public_key_to_github, :user => nil, :home => nil, :key_path => ni
         code <<-EOH
           KEY=`cat #{key_path}`
           JSON="{\\"title\\": \\"#{key_name}\\", \\"key\\": \\"${KEY}\\"}"
-          curl -f -i -H "Authorization: #{github_oauth_token}" -d "${JSON}" https://api.github.com/user/keys
+          curl -f -i -H "Authorization: token #{github_oauth_token}" -d "${JSON}" https://api.github.com/user/keys
         EOH
-        not_if "curl -i -H \"Authorization: #{github_oauth_token}\" https://api.github.com/user/keys | grep '\"title\": \"#{key_name}\"'"
-        subscribes :run, resources("execute[generate_ssh_keys_for_#{params[:user]}]")
+        not_if "curl -i -H \"Authorization: token #{github_oauth_token}\" https://api.github.com/user/keys | grep '\"title\": \"#{key_name}\"'"
       else
         code <<-EOH
           KEY=`cat #{key_path}`
